@@ -12,29 +12,59 @@
 
         <div class="card shadow-sm">
             <div class="card-body">
-
-                <form action="{{ route('patients.store') }}" method="POST">
+                <form action="{{ route('doctors.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label>Name</label>
-                        <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Specialty</label>
+                        <input type="text" name="specialty" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label>Phone</label>
-                        <input type="text" name="phone" class="form-control" value="{{ old('phone') }}">
+                        <input type="text" name="phone" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label>Email</label>
-                        <input type="email" name="email" class="form-control" value="{{ old('email') }}">
-                    </div>
-                    <div class="mb-3">
-                        <label>Address</label>
-                        <input type="text" name="address" class="form-control" value="{{ old('address') }}">
+                        <input type="email" name="email" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-success">Save</button>
-                    <a href="{{ route('patients.index') }}" class="btn btn-secondary">Cancel</a>
+                    <a href="{{ route('doctors.index') }}" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>
+    </div>
+@endsection
+
+
+
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <h1>Add Doctor</h1>
+        <form action="{{ route('doctors.store') }}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <label>Name</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Specialty</label>
+                <input type="text" name="specialty" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Phone</label>
+                <input type="text" name="phone" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Save</button>
+            <a href="{{ route('doctors.index') }}" class="btn btn-secondary">Cancel</a>
+        </form>
     </div>
 @endsection
