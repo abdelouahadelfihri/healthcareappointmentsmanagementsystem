@@ -21,68 +21,36 @@
                             class="table table-striped table-hover table-bordered align-middle mb-0">
                             <thead class="table-dark">
                                 <tr>
-                                    <th>#</th>
-                                    <th>PR-Number</th>
-                                    <th>Supplier</th>
-                                    <th>Date</th>
+                                    <th>Patient</th>
+                                    <th>Doctor</th>
+                                    <th>Date & Time</th>
                                     <th>Status</th>
-                                    <th class="text-center" style="width: 180px;">Action</th>
+                                    <th>Services</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($requests as $req)
+                                @foreach($appointments as $appointment)
                                     <tr>
-                                        <td scope="row">{{ $req->id }}</td>
-                                        <td scope="row">{{ $req->pr_number }}</td>
-                                        <td>{{ $req->supplier->name ?? '—' }}</td>
-                                        <td>{{ $req->date }}</td>
-                                        <td>{{ $req->status }}</td>
-                                        <td class="text-center">
-                                            <div class="d-flex justify-content-center gap-1">
-
-                                                @if($req->status === 'draft')
-
-                                                    <!-- Edit button -->
-                                                    <a href="{{ route('purchasesrequests.edit', $req->id) }}"
-                                                        class="btn btn-sm btn-warning" title="Edit Request">
-                                                        <i class="bi bi-pencil-square"></i>
-                                                    </a>
-
-                                                    <!-- Delete button -->
-                                                    <form action="{{ route('purchasesrequests.destroy', $req->id) }}" method="POST"
-                                                        style="display:inline;"
-                                                        onsubmit="return confirm('Are you sure you want to delete this request?');">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger" title="Delete Request">
-                                                            <i class="bi bi-trash"></i>
-                                                        </button>
-                                                    </form>
-
-                                                @elseif($req->status === 'approved')
-
-                                                    <!-- View only (optional) -->
-                                                    <a href="{{ route('purchasesrequests.show', $req->id) }}"
-                                                        class="btn btn-sm btn-info" title="View Request">
-                                                        <i class="bi bi-eye"></i>
-                                                    </a>
-
-                                                @elseif($req->status === 'rejected')
-
-                                                    <!-- Allow delete only -->
-                                                    <form action="{{ route('purchasesrequests.destroy', $req->id) }}" method="POST"
-                                                        style="display:inline;"
-                                                        onsubmit="return confirm('Are you sure you want to delete this rejected request?');">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger" title="Delete Request">
-                                                            <i class="bi bi-trash"></i>
-                                                        </button>
-                                                    </form>
-
-                                                @endif
-
-                                            </div>
+                                        <td>{{ $appointment->patient->name }}</td>
+                                        <td>{{ $appointment->doctor->name }}</td>
+                                        <td>{{ $appointment->appointment_datetime }}</td>
+                                        <td>{{ ucfirst($appointment->status) }}</td>
+                                        <td>
+                                            @foreach($appointment->services as $service)
+                                                {{ $service->name }} ({{ $service->pivot->quantity }})<br>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('appointments.edit', $appointment) }}"
+                                                class="btn btn-sm btn-warning">Edit</a>
+                                            <form action="{{ route('appointments.destroy', $appointment) }}" method="POST"
+                                                style="display:inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Delete this appointment?')">Delete</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -117,3 +85,59 @@
         });
     </script>
 @endpush
+
+
+
+
+
+
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <h1>Appointments</h1>
+        <a href="{{ route('appointments.create') }}" class="btn btn-primary mb-3">Add Appointment</a>
+
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                    <th>Date & Time</th>
+                    <th>Status</th>
+                    <th>Services</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($appointments as $appointment)
+                    <tr>
+                        <td>{{ $appointment->patient->name }}</td>
+                        <td>{{ $appointment->doctor->name }}</td>
+                        <td>{{ $appointment->appointment_datetime }}</td>
+                        <td>{{ ucfirst($appointment->status) }}</td>
+                        <td>
+                            @foreach($appointment->services as $service)
+                                {{ $service->name }} ({{ $service->pivot->quantity }})<br>
+                            @endforeach
+                        </td>
+                        <td>
+                            <a href="{{ route('appointments.edit', $appointment) }}" class="btn btn-sm btn-warning">Edit</a>
+                            <form action="{{ route('appointments.destroy', $appointment) }}" method="POST"
+                                style="display:inline">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-danger"
+                                    onclick="return confirm('Delete this appointment?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+@endsection
