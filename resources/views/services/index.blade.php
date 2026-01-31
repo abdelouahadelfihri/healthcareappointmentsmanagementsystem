@@ -2,36 +2,36 @@
 
 @section('content')
     <div class="container mt-4">
-        <h1 class="mb-4">List of Categories</h1>
+        <h1 class="mb-4">List of Services</h1>
 
         <div class="mb-3">
             <a class="btn btn-primary rounded-pill shadow-sm d-inline-flex align-items-center gap-2"
                 href="{{ route('categories.create') }}">
-                <i class="bi bi-plus-lg"></i> Add a Category
+                <i class="bi bi-plus-lg"></i> Add a Service
             </a>
         </div>
 
-        @if($categories->isEmpty())
-            <div class="alert alert-info">No categories found.</div>
+        @if($services->isEmpty())
+            <div class="alert alert-info">No services found.</div>
         @else
             <div class="card shadow-sm">
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table id="locationsTable" class="table table-striped table-hover table-bordered align-middle mb-0">
+                        <table id="servicesTable" class="table table-striped table-hover table-bordered align-middle mb-0">
                             <thead class="table-dark">
                                 <tr>
-                                    <th>#</th>
                                     <th>Name</th>
-                                    <th>Address</th>
-                                    <th class="text-center" style="width: 180px;">Action</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($categories as $category)
+                                @foreach($services as $service)
                                     <tr>
-                                        <th>{{ $category->id }}</th>
-                                        <td>{{ $category->name }}</td>
-                                        <td>{{ $category->description }}</td>
+                                        <td>{{ $service->name }}</td>
+                                        <td>{{ $service->description }}</td>
+                                        <td>{{ $service->price }}</td>
                                         <td class="text-center">
                                             <div class="d-flex justify-content-center gap-1">
                                                 <!-- Edit button -->
@@ -75,7 +75,7 @@
     <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#locationsTable').DataTable({
+            $('#servicesTable').DataTable({
                 paging: true,
                 searching: true,
                 ordering: true,
@@ -84,3 +84,49 @@
         });
     </script>
 @endpush
+
+
+
+
+
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <h1>Services</h1>
+        <a href="{{ route('services.create') }}" class="btn btn-primary mb-3">Add Service</a>
+
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($services as $service)
+                    <tr>
+                        <td>{{ $service->name }}</td>
+                        <td>{{ $service->description }}</td>
+                        <td>{{ $service->price }}</td>
+                        <td>
+                            <a href="{{ route('services.edit', $service) }}" class="btn btn-sm btn-warning">Edit</a>
+                            <form action="{{ route('services.destroy', $service) }}" method="POST" style="display:inline">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-danger"
+                                    onclick="return confirm('Delete this service?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+@endsection
