@@ -17,29 +17,27 @@
             <div class="card shadow-sm">
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table id="suppliersTable"
-                            class="table table-striped table-hover table-bordered align-middle mb-0">
+                        <table id="patientsTable" class="table table-striped table-hover table-bordered align-middle mb-0">
                             <thead class="table-dark">
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Phone</th>
-                                    <th scope="col" class="text-center" style="width: 180px;">Action</th>
+                                    <th>Name</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Address</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($suppliers as $s)
+                                @foreach($patients as $patient)
                                     <tr>
-                                        <th scope="row">{{ $s->id }}</th>
-                                        <td>{{ $s->name }}</td>
-                                        <td>{{ $s->email }}</td>
-                                        <td>{{ $s->phone }}</td>
+                                        <td>{{ $patient->name }}</td>
+                                        <td>{{ $patient->phone }}</td>
+                                        <td>{{ $patient->email }}</td>
+                                        <td>{{ $patient->address }}</td>
                                         <td>
-                                            <span
-                                                class="badge @if($req->status === 'draft') bg-secondary                                                                                                                                                                                                                        @elseif($req->status === 'pending') bg-warning text-dark
-                                                @elseif($req->status === 'approved') bg-success
-                                                                                                                                                                                                                                    @else bg-light text-dark @endif">
+                                            <span class="badge @if($req->status === 'draft') bg-secondary                                                                                                                                                                                                                        @elseif($req->status === 'pending') bg-warning text-dark
+                                            @elseif($req->status === 'approved') bg-success
+                                                        @else bg-light text-dark @endif">
                                                 {{ ucfirst($req->status) }}
                                             </span>
                                         </td>
@@ -89,7 +87,7 @@
     <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#suppliersTable').DataTable({
+            $('#patientsTable').DataTable({
                 paging: true,
                 searching: true,
                 ordering: true,
