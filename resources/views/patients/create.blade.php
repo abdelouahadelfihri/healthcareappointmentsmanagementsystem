@@ -4,8 +4,8 @@
     <div class="container mt-4">
 
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h1>Create Supplier</h1>
-            <a href="{{ route('suppliers.index') }}" class="btn btn-secondary">
+            <h1>Add a Patient</h1>
+            <a href="{{ route('patients.index') }}" class="btn btn-secondary">
                 Back
             </a>
         </div>
@@ -13,43 +13,28 @@
         <div class="card shadow-sm">
             <div class="card-body">
 
-                <form action="{{ route('suppliers.store') }}" method="POST">
+                <form action="{{ route('patients.store') }}" method="POST">
                     @csrf
-
-                    <!-- Name -->
                     <div class="mb-3">
-                        <label class="form-label">Name</label>
-                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                            value="{{ old('name') }}" required>
-                        @error('name')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
                     </div>
-
-                    <!-- Email -->
                     <div class="mb-3">
-                        <label class="form-label">Email (optional)</label>
-                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                            value="{{ old('email') }}">
-                        @error('email')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <label>Phone</label>
+                        <input type="text" name="phone" class="form-control" value="{{ old('phone') }}">
                     </div>
-
-                    <!-- Actions -->
-                    <div class="d-flex justify-content-end">
-                        <a href="{{ route('suppliers.index') }}" class="btn btn-outline-secondary me-2">
-                            Cancel
-                        </a>
-                        <button type="submit" class="btn btn-primary">
-                            Save Supplier
-                        </button>
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control" value="{{ old('email') }}">
                     </div>
-
+                    <div class="mb-3">
+                        <label>Address</label>
+                        <input type="text" name="address" class="form-control" value="{{ old('address') }}">
+                    </div>
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <a href="{{ route('patients.index') }}" class="btn btn-secondary">Cancel</a>
                 </form>
-
             </div>
         </div>
-
     </div>
 @endsection
