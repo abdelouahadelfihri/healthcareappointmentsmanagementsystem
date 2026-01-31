@@ -54,10 +54,6 @@
                         </table>
                     </div>
                 </div>
-
-                <div class="mt-3">
-                    {{ $customers->withQueryString()->links() }}
-                </div>
         @endif
         </div>
 @endsection
