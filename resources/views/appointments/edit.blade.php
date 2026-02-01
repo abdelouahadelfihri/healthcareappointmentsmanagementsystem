@@ -2,90 +2,112 @@
 
 @section('content')
     <div class="container mt-4">
-
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h1>Edit a Purchase Request</h1>
-            <a href="{{ route('purchasesrequests.index') }}" class="btn btn-secondary">
-                Back
-            </a>
+            <h3>Edit Appointment</h3>
+            <a href="{{ route('appointments.index') }}" class="btn btn-secondary">Back</a>
         </div>
 
         <div class="card shadow-sm">
             <div class="card-body">
-                {{-- 🔹 Display Purchase Request ID --}}
-                <div class="alert alert-info">
-                    <strong>PR ID:</strong> {{ $purchaseRequest->id }} <br>
-                    <strong>PR Number:</strong> {{ $purchaseRequest->pr_number }}
-                </div>
-
-                <form action="{{ route('purchasesrequests.update', $purchaseRequest) }}" method="POST">
+                <form method="POST" action="{{ route('appointments.update', $appointment) }}">
                     @csrf
                     @method('PUT')
 
-                    {{-- Supplier --}}
+                    <!-- Patient -->
                     <div class="mb-3">
-                        <label class="form-label">Supplier</label>
-
-                        {{-- hidden supplier_id --}}
-                        <input type="hidden" name="supplier_id" id="supplier_id"
-                            value="{{ old('supplier_id', $purchaseRequest->supplier_id) }}">
-
-                        {{-- visible name --}}
+                        <label class="form-label">Patient</label>
                         <div class="input-group">
-                            <input type="text" id="supplier_name" class="form-control"
-                                value="{{ optional($purchaseRequest->supplier)->name }}" readonly>
-                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                data-bs-target="#supplierModal">
-                                Pick Supplier
+                            <input type="hidden" name="patient_id" id="patient_id" value="{{ $appointment->patient_id }}">
+                            <input type="text" id="patient_name" class="form-control"
+                                value="{{ $appointment->patient->name }}" readonly>
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#patientModal">
+                                Select Patient
                             </button>
                         </div>
                     </div>
 
-                    {{-- PR Number (readonly or editable, depending on your logic) --}}
+                    <!-- Doctor -->
                     <div class="mb-3">
-                        <label class="form-label">PR Number</label>
-                        <input type="text" name="pr_number" class="form-control"
-                            value="{{ old('pr_number', $purchaseRequest->pr_number) }}" readonly>
+                        <label class="form-label">Doctor</label>
+                        <div class="input-group">
+                            <input type="hidden" name="doctor_id" id="doctor_id" value="{{ $appointment->doctor_id }}">
+                            <input type="text" id="doctor_name" class="form-control"
+                                value="{{ $appointment->doctor->name }}" readonly>
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#doctorModal">
+                                Select Doctor
+                            </button>
+                        </div>
                     </div>
 
-                    {{-- Description --}}
+                    <!-- Date & Time -->
                     <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea name="description" class="form-control"
-                            rows="3">{{ old('description', $purchaseRequest->description) }}</textarea>
+                        <label class="form-label">Date & Time</label>
+                        <input type="datetime-local" name="appointment_datetime" class="form-control"
+                            value="{{ \Carbon\Carbon::parse($appointment->appointment_datetime)->format('Y-m-d\TH:i') }}"
+                            required>
                     </div>
 
-                    {{-- Date --}}
-                    <div class="mb-3">
-                        <label class="form-label">Date</label>
-                        <input type="date" name="date" class="form-control"
-                            value="{{ old('date', $purchaseRequest->date) }}" required>
-                    </div>
-
-                    {{-- Status --}}
+                    <!-- Status -->
                     <div class="mb-3">
                         <label class="form-label">Status</label>
                         <select name="status" class="form-control">
-                            <option value="pending" {{ $purchaseRequest->status == 'pending' ? 'selected' : '' }}>Pending
+                            <option value="scheduled" {{ $appointment->status == 'scheduled' ? 'selected' : '' }}>Scheduled
                             </option>
-                            <option value="approved" {{ $purchaseRequest->status == 'approved' ? 'selected' : '' }}>Approved
+                            <option value="completed" {{ $appointment->status == 'completed' ? 'selected' : '' }}>Completed
                             </option>
-                            <option value="rejected" {{ $purchaseRequest->status == 'rejected' ? 'selected' : '' }}>Rejected
+                            <option value="cancelled" {{ $appointment->status == 'cancelled' ? 'selected' : '' }}>Cancelled
                             </option>
                         </select>
                     </div>
 
+                    <!-- Services -->
+                    <div class="mb-3">
+                        <label class="form-label">Services</label>
+                        <select name="services[]" class="form-control" multiple>
+                            @foreach($services as $service)
+                                <option value="{{ $service->id }}" {{ $appointment->services->contains($service->id) ? 'selected' : '' }}>
+                                    {{ $service->name }} ({{ $service->price }})
+                                </option>
+                            @endforeach
+                        </select>
+                        <small class="text-muted">Hold Ctrl (Windows) or Cmd (Mac) to select multiple services</small>
+                    </div>
+
+                    <!-- Notes -->
+                    <div class="mb-3">
+                        <label class="form-label">Notes</label>
+                        <textarea name="notes" class="form-control" rows="3">{{ $appointment->notes }}</textarea>
+                    </div>
+
                     <!-- Actions -->
                     <div class="d-flex justify-content-end">
-                        <a href="{{ route('purchasesrequests.index') }}" class="btn btn-outline-secondary me-2">
-                            Cancel
-                        </a>
-                        <button type="submit" class="btn btn-primary">
-                            Update
-                        </button>
+                        <a href="{{ route('appointments.index') }}" class="btn btn-outline-secondary me-2">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
+
                 </form>
             </div>
         </div>
     </div>
+
+    @include('modals.patient-picker')
+    @include('modals.doctor-picker')
+
+    <script>
+        function selectPatient(id, name) {
+            document.getElementById('patient_id').value = id;
+            document.getElementById('patient_name').value = name;
+            var patientModal = bootstrap.Modal.getInstance(document.getElementById('patientModal'));
+            patientModal.hide();
+        }
+
+        function selectDoctor(id, name) {
+            document.getElementById('doctor_id').value = id;
+            document.getElementById('doctor_name').value = name;
+            var doctorModal = bootstrap.Modal.getInstance(document.getElementById('doctorModal'));
+            doctorModal.hide();
+        }
+    </script>
 @endsection
