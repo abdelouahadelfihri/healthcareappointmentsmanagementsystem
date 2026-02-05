@@ -14,57 +14,37 @@
             <div class="card-body">
                 <form action="{{ route('patients.store') }}" method="POST">
                     @csrf
+
                     <div class="mb-3">
-                        <label>Name</label>
+                        <label class="form-label">Name</label>
                         <input type="text" name="name" class="form-control" required>
                     </div>
+
                     <div class="mb-3">
-                        <label>Specialty</label>
-                        <input type="text" name="specialty" class="form-control" required>
+                        <label class="form-label">Date of Birth</label>
+                        <input type="date" name="date_of_birth" class="form-control">
                     </div>
+
                     <div class="mb-3">
-                        <label>Phone</label>
+                        <label class="form-label">Phone</label>
                         <input type="text" name="phone" class="form-control">
                     </div>
+
                     <div class="mb-3">
-                        <label>Email</label>
+                        <label class="form-label">Email (optional)</label>
                         <input type="email" name="email" class="form-control">
                     </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Address</label>
+                        <textarea name="address" class="form-control" rows="3"></textarea>
+                    </div>
+
                     <button type="submit" class="btn btn-success">Save</button>
                     <a href="{{ route('patients.index') }}" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>
-    </div>
-@endsection
 
-
-
-@extends('layouts.app')
-
-@section('content')
-    <div class="container">
-        <h1>Add Doctor</h1>
-        <form action="{{ route('patients.store') }}" method="POST">
-            @csrf
-            <div class="mb-3">
-                <label>Name</label>
-                <input type="text" name="name" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label>Specialty</label>
-                <input type="text" name="specialty" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label>Phone</label>
-                <input type="text" name="phone" class="form-control">
-            </div>
-            <div class="mb-3">
-                <label>Email</label>
-                <input type="email" name="email" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Save</button>
-            <a href="{{ route('patients.index') }}" class="btn btn-secondary">Cancel</a>
-        </form>
     </div>
 @endsection
