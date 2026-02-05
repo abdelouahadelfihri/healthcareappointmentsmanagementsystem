@@ -1,8 +1,8 @@
-<div class="modal fade" id="categoryModal" tabindex="-1">
+<div class="modal fade" id="patientModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Select Category</h5>
+                <h5 class="modal-title">Select Patient</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
@@ -24,15 +24,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach(App\Models\MasterData\Category::all() as $s)
+                        @foreach(App\Models\Patient::all() as $patient)
                             <tr>
-                                <td>{{ $s->name }}</td>
-                                <td>{{ $s->email }}</td>
-                                <td>{{ $s->phone }}</td>
+                                <td>{{ $patient->name }}</td>
+                                <td>{{ $patient->email }}</td>
+                                <td>{{ $patient->phone }}</td>
                                 <td>
                                     <button type="button" class="btn btn-sm btn-primary select-category"
-                                        data-id="{{ $s->id }}" data-name="{{ $s->name }}" data-email="{{ $s->email }}"
-                                        data-phone="{{ $s->phone }}">
+                                        data-id="{{ $patient->id }}" data-name="{{ $patient->name }}" data-email="{{ $patient->email }}"
+                                        data-phone="{{ $patient->phone }}">
                                         Select
                                     </button>
                                 </td>
@@ -44,11 +44,11 @@
                 <hr>
 
                 {{-- ADD NEW SUPPLIER --}}
-                <h6 class="fw-bold mb-2">Add New Category</h6>
+                <h6 class="fw-bold mb-2">Add New Patient</h6>
 
                 <div class="row g-2 mb-2">
                     <div class="col-md-6">
-                        <input type="text" id="new_category_name" class="form-control" placeholder="Category Name">
+                        <input type="text" id="new_category_name" class="form-control" placeholder="Patient Name">
                     </div>
                     <div class="col-md-6">
                         <input type="email" id="new_category_email" class="form-control" placeholder="Email">
@@ -64,7 +64,7 @@
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-success w-100" id="addCategoryBtn">+ Add Category</button>
+                <button type="button" class="btn btn-success w-100" id="addPatientBtn">+ Add Patient</button>
             </div>
         </div>
     </div>
@@ -83,7 +83,7 @@
             });
 
             // ➕ Add category via AJAX
-            $('#addCategoryBtn').click(function () {
+            $('#addPatientBtn').click(function () {
                 let name = $('#new_category_name').val().trim();
                 let email = $('#new_category_email').val().trim();
                 let phone = $('#new_category_phone').val().trim();
@@ -103,18 +103,18 @@
                     },
                     success: function (data) {
                         $('#categoryTable tbody').append(`
-                                        <tr>
-                                            <td>${data.name}</td>
-                                            <td>${data.email ?? ''}</td>
-                                            <td>${data.phone ?? ''}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm btn-primary select-category"
-                                                    data-id="${data.id}" data-name="${data.name}" data-email="${data.email}" data-phone="${data.phone}">
-                                                    Select
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    `);
+                                            <tr>
+                                                <td>${data.name}</td>
+                                                <td>${data.email ?? ''}</td>
+                                                <td>${data.phone ?? ''}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-sm btn-primary select-category"
+                                                        data-id="${data.id}" data-name="${data.name}" data-email="${data.email}" data-phone="${data.phone}">
+                                                        Select
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        `);
 
                         // clear inputs
                         $('#new_category_name').val('');
@@ -134,7 +134,7 @@
                 $('#category_name').val(name);
 
                 // close modal
-                let modalEl = document.getElementById('categoryModal');
+                let modalEl = document.getElementById('patientModal');
                 let modal = bootstrap.Modal.getOrCreateInstance(modalEl);
                 modal.hide();
             });
