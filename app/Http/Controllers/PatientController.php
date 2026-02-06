@@ -17,32 +17,41 @@ class PatientController extends Controller
     {
         return view('patients.create');
     }
-
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'nullable|email'
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'date_of_birth' => 'nullable|date',
+            'phone' => 'nullable|string|max:20',
+            'email' => 'nullable|email|max:255',
+            'address' => 'nullable|string|max:500',
         ]);
 
-        Patient::create($request->all());
-        return redirect()->route('patients.index')->with('success', 'Patient added successfully');
-    }
+        Patient::create($validated);
 
+        return redirect()
+            ->route('patients.index')
+            ->with('success', 'Patient added successfully');
+    }
     public function edit(Patient $patient)
     {
         return view('patients.edit', compact('patient'));
     }
-
     public function update(Request $request, Patient $patient)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'nullable|email'
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'date_of_birth' => 'nullable|date',
+            'phone' => 'nullable|string|max:20',
+            'email' => 'nullable|email|max:255',
+            'address' => 'nullable|string|max:500',
         ]);
 
-        $patient->update($request->all());
-        return redirect()->route('patients.index')->with('success', 'Patient updated successfully');
+        $patient->update($validated);
+
+        return redirect()
+            ->route('patients.index')
+            ->with('success', 'Patient updated successfully');
     }
     public function ajaxStore(Request $request)
     {
