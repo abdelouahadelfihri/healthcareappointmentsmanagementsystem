@@ -20,31 +20,49 @@ class DoctorController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'specialty' => 'required'
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'specialty' => 'required|string|max:255',
+            'phone' => 'nullable|string|max:20',
+            'email' => 'nullable|email|max:255',
         ]);
 
-        Doctor::create($request->all());
-        return redirect()->route('doctors.index')->with('success', 'Doctor added successfully');
-    }
+        Doctor::create($validated);
 
+        return redirect()
+            ->route('doctors.index')
+            ->with('success', 'Doctor added successfully');
+    }
     public function edit(Doctor $doctor)
     {
         return view('doctors.edit', compact('doctor'));
     }
-
     public function update(Request $request, Doctor $doctor)
     {
-        $request->validate([
-            'name' => 'required',
-            'specialty' => 'required'
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'specialty' => 'required|string|max:255',
+            'phone' => 'nullable|string|max:20',
+            'email' => 'nullable|email|max:255',
         ]);
 
-        $doctor->update($request->all());
-        return redirect()->route('doctors.index')->with('success', 'Doctor updated successfully');
-    }
+        $doctor->update($validated);
 
+        return redirect()
+            ->route('doctors.index')
+            ->with('success', 'Doctor updated successfully');
+    }
+    public function ajaxStore(Request $request)
+    {
+        $doctor = Doctor::create([
+            'name' => $request->name,
+            'specialty' => $request->specialty,
+            'phone' => $request->phone,
+            'email' => $request->email,
+        ]);
+
+        return response()->json($doctor);
+    }
     public function destroy(Doctor $doctor)
     {
         $doctor->delete();
