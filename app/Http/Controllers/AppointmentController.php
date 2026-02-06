@@ -26,27 +26,20 @@ class AppointmentController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'patient_id' => 'required|exists:patients,id',
             'doctor_id' => 'required|exists:doctors,id',
-            'appointment_datetime' => 'required|date'
+            'appointment_datetime' => 'required|date',
+            'status' => 'required|string|max:50',
+            'notes' => 'nullable|string|max:1000',
         ]);
 
-        $appointment = Appointment::create($request->only([
-            'patient_id',
-            'doctor_id',
-            'appointment_datetime',
-            'status',
-            'notes'
-        ]));
+        Appointment::create($validated);
 
-        if ($request->services) {
-            $appointment->services()->attach($request->services);
-        }
-
-        return redirect()->route('appointments.index')->with('success', 'Appointment created successfully');
+        return redirect()
+            ->route('appointments.index')
+            ->with('success', 'Appointment created successfully');
     }
-
     public function edit(Appointment $appointment)
     {
         $patients = Patient::all();
@@ -55,26 +48,30 @@ class AppointmentController extends Controller
         $appointment->load('services');
         return view('appointments.edit', compact('appointment', 'patients', 'doctors', 'services'));
     }
-
     public function update(Request $request, Appointment $appointment)
     {
-        $appointment->update($request->only([
-            'patient_id',
-            'doctor_id',
-            'appointment_datetime',
-            'status',
-            'notes'
-        ]));
+        $validated = $request->validate([
+            'patient_id' => 'required|exists:patients,id',
+            'doctor_id' => 'required|exists:doctors,id',
+            'appointment_datetime' => 'required|date',
+            'status' => 'required|string|max:50',
+            'notes' => 'nullable|string|max:1000',
+            'services' => 'nullable|array',
+            'services.*' => 'exists:services,id',
+        ]);
 
-        if ($request->services) {
-            $appointment->services()->sync($request->services);
+        $appointment->update(collect($validated)->except('services')->toArray());
+
+        if (isset($validated['services'])) {
+            $appointment->services()->sync($validated['services']);
         } else {
             $appointment->services()->detach();
         }
 
-        return redirect()->route('appointments.index')->with('success', 'Appointment updated successfully');
+        return redirect()
+            ->route('appointments.index')
+            ->with('success', 'Appointment updated successfully');
     }
-
     public function destroy(Appointment $appointment)
     {
         $appointment->delete();
