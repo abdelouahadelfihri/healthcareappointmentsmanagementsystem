@@ -85,6 +85,7 @@
             // ➕ Add category via AJAX
             $('#addPatientBtn').click(function () {
                 let name = $('#new_patient_name').val().trim();
+                let date_of_birth = $('#new_patient_date_of_birth').val().trim();
                 let email = $('#new_patient_email').val().trim();
                 let phone = $('#new_patient_phone').val().trim();
                 let address = $('#new_patient_address').val().trim();

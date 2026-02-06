@@ -44,7 +44,18 @@ class PatientController extends Controller
         $patient->update($request->all());
         return redirect()->route('patients.index')->with('success', 'Patient updated successfully');
     }
+    public function ajaxStore(Request $request)
+    {
+        $patient = Patient::create([
+            'name' => $request->name,
+            'date_of_birth' => $request->date_of_birth,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'address' => $request->address,
+        ]);
 
+        return response()->json($patient);
+    }
     public function destroy(Patient $patient)
     {
         $patient->delete();
