@@ -197,7 +197,7 @@
                 <li>
                     <a class="nav-link" data-bs-toggle="collapse" href="#patientsMenu">
                         <i class="bi bi-people"></i>
-                        <span>Patiens</span>
+                        <span>Patients</span>
                     </a>
                     <div class="collapse" id="patientsMenu">
                         <ul class="nav flex-column submenu">
@@ -245,7 +245,7 @@
                 <li>
                     <a class="nav-link" data-bs-toggle="collapse" href="#servicesMenu">
                         <i class="bi bi-heart-pulse"></i>
-                        <span>Purchases</span>
+                        <span>Services</span>
                     </a>
                     <div class="collapse" id="servicesMenu">
                         <ul class="nav flex-column submenu">
@@ -269,7 +269,7 @@
                 <li>
                     <a class="nav-link" data-bs-toggle="collapse" href="#doctorsMenu">
                         <i class="bi bi-person-badge"></i>
-                        <span>Purchases</span>
+                        <span>Doctors</span>
                     </a>
                     <div class="collapse" id="doctorsMenu">
                         <ul class="nav flex-column submenu">
