@@ -185,7 +185,8 @@
 
             <!-- App header -->
             <div class="app-header">
-                <div class="app-brand">
+                <div class="app-brand" data-bs-toggle="tooltip" data-bs-placement="right"
+                    title="Medical Appointments Manager">
                     <i class="bi bi-building"></i>
                     <span>Medical Appointments Manager</span>
                 </div>
