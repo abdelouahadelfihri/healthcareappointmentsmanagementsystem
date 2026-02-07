@@ -222,7 +222,7 @@
                 <li>
                     <a class="nav-link" data-bs-toggle="collapse" href="#appointmentsMenu">
                         <i class="bi bi-calendar-check"></i>
-                        <span>Doctors</span>
+                        <span>Appointments</span>
                     </a>
                     <div class="collapse" id="appointmentsMenu">
                         <ul class="nav flex-column submenu">
