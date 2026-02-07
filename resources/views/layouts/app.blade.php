@@ -158,6 +158,20 @@
         .sidebar.collapsed+.topbar {
             left: 72px;
         }
+
+        .app-brand {
+            font-size: 0.95rem;
+        }
+
+        .app-brand span {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2;
+            max-width: 160px;
+        }
     </style>
     @stack('styles')
 </head>
@@ -173,7 +187,7 @@
             <div class="app-header">
                 <div class="app-brand">
                     <i class="bi bi-building"></i>
-                    <span>Health-Care Appointments Management</span>
+                    <span>Medical Appointments Manager</span>
                 </div>
             </div>
 
@@ -182,7 +196,7 @@
                 <!-- Patients -->
                 <li>
                     <a class="nav-link" data-bs-toggle="collapse" href="#patientsMenu">
-                        <i class="bi bi-cart"></i>
+                        <i class="bi bi-people"></i>
                         <span>Patiens</span>
                     </a>
                     <div class="collapse" id="patientsMenu">
@@ -206,7 +220,7 @@
                 <!-- Appointments -->
                 <li>
                     <a class="nav-link" data-bs-toggle="collapse" href="#appointmentsMenu">
-                        <i class="bi bi-cart"></i>
+                        <i class="bi bi-calendar-check"></i>
                         <span>Doctors</span>
                     </a>
                     <div class="collapse" id="appointmentsMenu">
@@ -230,7 +244,7 @@
                 <!-- Services -->
                 <li>
                     <a class="nav-link" data-bs-toggle="collapse" href="#servicesMenu">
-                        <i class="bi bi-cart"></i>
+                        <i class="bi bi-heart-pulse"></i>
                         <span>Purchases</span>
                     </a>
                     <div class="collapse" id="servicesMenu">
@@ -254,7 +268,7 @@
                 <!-- Doctors -->
                 <li>
                     <a class="nav-link" data-bs-toggle="collapse" href="#doctorsMenu">
-                        <i class="bi bi-cart"></i>
+                        <i class="bi bi-person-badge"></i>
                         <span>Purchases</span>
                     </a>
                     <div class="collapse" id="doctorsMenu">
