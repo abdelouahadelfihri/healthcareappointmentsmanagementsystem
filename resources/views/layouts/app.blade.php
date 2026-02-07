@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Business Management')</title>
+    <title>@yield('title', 'Medical Appointments Manager')</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -187,7 +187,7 @@
             <div class="app-header">
                 <div class="app-brand" data-bs-toggle="tooltip" data-bs-placement="right"
                     title="Medical Appointments Manager">
-                    <i class="bi bi-building"></i>
+                    <i class="bi bi-calendar2-check"></i>
                     <span>Medical Appointments Manager</span>
                 </div>
             </div>
