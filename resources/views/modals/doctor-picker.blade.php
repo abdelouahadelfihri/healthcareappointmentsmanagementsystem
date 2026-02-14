@@ -103,6 +103,7 @@
                 $.ajax({
                     url: '{{ route("doctors.ajaxStore") }}',
                     method: 'POST',
+                    dataType: 'json', // <- ensures jQuery parses JSON
                     data: {
                         _token: '{{ csrf_token() }}',
                         name: name,
@@ -111,23 +112,25 @@
                         email: email
                     },
                     success: function (data) {
+                        console.log(data); // should show {id, name, specialty, phone, email}
+
 
                         $('#doctorTable tbody').append(`
-                            <tr>
-                                <td>${data.name}</td>
-                                <td>${data.specialty ?? ''}</td>
-                                <td>${data.email ?? ''}</td>
-                                <td>${data.phone ?? ''}</td>
-                                <td>
-                                    <button type="button"
-                                        class="btn btn-sm btn-primary select-doctor"
-                                        data-id="${data.id}"
-                                        data-name="${data.name}">
-                                        Select
-                                    </button>
-                                </td>
-                            </tr>
-                        `);
+                                    <tr>
+                                        <td>${data.name}</td>
+                                        <td>${data.specialty ?? ''}</td>
+                                        <td>${data.email ?? ''}</td>
+                                        <td>${data.phone ?? ''}</td>
+                                        <td>
+                                            <button type="button"
+                                                class="btn btn-sm btn-primary select-doctor"
+                                                data-id="${data.id}"
+                                                data-name="${data.name}">
+                                                Select
+                                            </button>
+                                        </td>
+                                    </tr>
+                                `);
 
                         // reset form
                         $('#new_doctor_name').val('');

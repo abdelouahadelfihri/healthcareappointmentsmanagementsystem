@@ -60,16 +60,20 @@ class DoctorController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'specialty' => 'required|string|max:255',
+            'specialty' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
         ]);
 
         $doctor = Doctor::create($validated);
 
+        // Return JSON in simple flat structure
         return response()->json([
-            'success' => true,
-            'doctor' => $doctor
+            'id' => $doctor->id,
+            'name' => $doctor->name,
+            'specialty' => $doctor->specialty,
+            'phone' => $doctor->phone,
+            'email' => $doctor->email,
         ]);
     }
 
