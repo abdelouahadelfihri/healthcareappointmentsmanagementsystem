@@ -33,10 +33,12 @@ class DoctorController extends Controller
             ->route('doctors.index')
             ->with('success', 'Doctor added successfully');
     }
+
     public function edit(Doctor $doctor)
     {
         return view('doctors.edit', compact('doctor'));
     }
+
     public function update(Request $request, Doctor $doctor)
     {
         $validated = $request->validate([
@@ -52,20 +54,31 @@ class DoctorController extends Controller
             ->route('doctors.index')
             ->with('success', 'Doctor updated successfully');
     }
+
+    // AJAX doctor creation (for picker)
     public function ajaxStore(Request $request)
     {
-        $doctor = Doctor::create([
-            'name' => $request->name,
-            'specialty' => $request->specialty,
-            'phone' => $request->phone,
-            'email' => $request->email,
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'specialty' => 'required|string|max:255',
+            'phone' => 'nullable|string|max:20',
+            'email' => 'nullable|email|max:255',
         ]);
 
-        return response()->json($doctor);
+        $doctor = Doctor::create($validated);
+
+        return response()->json([
+            'success' => true,
+            'doctor' => $doctor
+        ]);
     }
+
     public function destroy(Doctor $doctor)
     {
         $doctor->delete();
-        return redirect()->route('doctors.index')->with('success', 'Doctor deleted successfully');
+
+        return redirect()
+            ->route('doctors.index')
+            ->with('success', 'Doctor deleted successfully');
     }
 }
