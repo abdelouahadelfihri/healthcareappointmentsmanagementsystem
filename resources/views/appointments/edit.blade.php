@@ -96,6 +96,7 @@
     @include('modals.doctor-picker')
 
     <script>
+        // Patient picker
         function selectPatient(id, name) {
             document.getElementById('patient_id').value = id;
             document.getElementById('patient_name').value = name;
@@ -103,6 +104,7 @@
             patientModal.hide();
         }
 
+        // Doctor picker
         function selectDoctor(id, name) {
             document.getElementById('doctor_id').value = id;
             document.getElementById('doctor_name').value = name;
