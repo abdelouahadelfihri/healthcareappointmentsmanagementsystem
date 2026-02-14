@@ -21,8 +21,10 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Date of Birth</th>
                             <th>Email</th>
                             <th>Phone</th>
+                            <th>Address</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -30,12 +32,13 @@
                         @foreach(\App\Models\Patient::all() as $patient)
                             <tr>
                                 <td>{{ $patient->name }}</td>
+                                <td>{{ $patient->date_of_birth }}</td>
                                 <td>{{ $patient->email }}</td>
                                 <td>{{ $patient->phone }}</td>
+                                <td>{{ $patient->address }}</td>
                                 <td>
                                     <button type="button" class="btn btn-sm btn-primary select-patient"
-                                        data-id="{{ $patient->id }}" data-name="{{ $patient->name }}"
-                                        data-email="{{ $patient->email }}" data-phone="{{ $patient->phone }}">
+                                        data-id="{{ $patient->id }}" data-name="{{ $patient->name }}">
                                         Select
                                     </button>
                                 </td>
@@ -50,11 +53,11 @@
                 <h6 class="fw-bold mb-3">Add New Patient</h6>
 
                 <div class="mb-2">
-                    <input type="text" id="new_patient_name" class="form-control" placeholder="Name" required>
+                    <input type="text" id="new_patient_name" class="form-control" placeholder="Patient Name" required>
                 </div>
 
                 <div class="mb-2">
-                    <input type="date" id="new_patient_date_of_birth" class="form-control">
+                    <input type="date" id="new_patient_dob" class="form-control" placeholder="Date of Birth">
                 </div>
 
                 <div class="mb-2">
@@ -78,67 +81,65 @@
     </div>
 </div>
 
-
 @push('scripts')
     <script>
         $(document).ready(function () {
 
-            // 🔍 Search filter
+            // 🔍 Search patients
             $('#patientSearch').on('keyup', function () {
                 let value = $(this).val().toLowerCase();
                 $('#patientTable tbody tr').filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
                 });
             });
 
             // ➕ Add patient via AJAX
             $('#addPatientBtn').on('click', function () {
-
                 let name = $('#new_patient_name').val().trim();
-                let date_of_birth = $('#new_patient_date_of_birth').val();
+                let dob = $('#new_patient_dob').val();
                 let phone = $('#new_patient_phone').val().trim();
                 let email = $('#new_patient_email').val().trim();
                 let address = $('#new_patient_address').val().trim();
 
                 if (name === '') {
-                    alert('Name is required');
+                    alert('Patient name is required');
                     return;
                 }
 
                 $.ajax({
                     url: '{{ route("patients.ajaxStore") }}',
                     method: 'POST',
+                    dataType: 'json',
                     data: {
                         _token: '{{ csrf_token() }}',
                         name: name,
-                        date_of_birth: date_of_birth,
+                        date_of_birth: dob,
                         phone: phone,
                         email: email,
                         address: address
                     },
                     success: function (data) {
-
+                        // append new row
                         $('#patientTable tbody').append(`
-                        <tr>
-                            <td>${data.name}</td>
-                            <td>${data.email ?? ''}</td>
-                            <td>${data.phone ?? ''}</td>
-                            <td>
-                                <button type="button"
-                                    class="btn btn-sm btn-primary select-patient"
-                                    data-id="${data.id}"
-                                    data-name="${data.name}"
-                                    data-email="${data.email}"
-                                    data-phone="${data.phone}">
-                                    Select
-                                </button>
-                            </td>
-                        </tr>
-                    `);
+                            <tr>
+                                <td>${data.name}</td>
+                                <td>${data.date_of_birth ?? ''}</td>
+                                <td>${data.email ?? ''}</td>
+                                <td>${data.phone ?? ''}</td>
+                                <td>${data.address ?? ''}</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-primary select-patient"
+                                        data-id="${data.id}"
+                                        data-name="${data.name}">
+                                        Select
+                                    </button>
+                                </td>
+                            </tr>
+                        `);
 
-                        // clear inputs
+                        // clear form
                         $('#new_patient_name').val('');
-                        $('#new_patient_date_of_birth').val('');
+                        $('#new_patient_dob').val('');
                         $('#new_patient_phone').val('');
                         $('#new_patient_email').val('');
                         $('#new_patient_address').val('');
@@ -148,7 +149,6 @@
 
             // 🎯 Select patient
             $(document).on('click', '.select-patient', function () {
-
                 let id = $(this).data('id');
                 let name = $(this).data('name');
 
