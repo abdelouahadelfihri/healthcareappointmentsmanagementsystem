@@ -55,15 +55,24 @@ class PatientController extends Controller
     }
     public function ajaxStore(Request $request)
     {
-        $patient = Patient::create([
-            'name' => $request->name,
-            'date_of_birth' => $request->date_of_birth,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'address' => $request->address,
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'date_of_birth' => 'nullable|date',
+            'phone' => 'nullable|string|max:20',
+            'email' => 'nullable|email|max:255',
+            'address' => 'nullable|string|max:500',
         ]);
 
-        return response()->json($patient);
+        $patient = Patient::create($validated);
+
+        return response()->json([
+            'id' => $patient->id,
+            'name' => $patient->name,
+            'date_of_birth' => $patient->date_of_birth,
+            'phone' => $patient->phone,
+            'email' => $patient->email,
+            'address' => $patient->address,
+        ]);
     }
     public function destroy(Patient $patient)
     {
