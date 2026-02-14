@@ -34,7 +34,8 @@ Route::middleware(['web'])->group(function () {
 
     // AJAX routes for modal add
 
-    Route::post('doctors/ajax-store', [DoctorController::class, 'ajaxStore'])->name('doctors.ajaxStore');
+    Route::post('/doctors/ajax-store', [DoctorController::class, 'ajaxStore'])
+        ->name('doctors.ajax-store');
     Route::post('patients/ajax-store', [PatientController::class, 'ajaxStore'])->name('patients.ajaxStore');
 
 });
