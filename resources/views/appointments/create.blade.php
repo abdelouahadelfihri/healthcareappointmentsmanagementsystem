@@ -19,9 +19,7 @@
                             <input type="hidden" name="patient_id" id="patient_id">
                             <input type="text" id="patient_name" class="form-control" readonly>
                             <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                data-bs-target="#patientModal">
-                                Select Patient
-                            </button>
+                                data-bs-target="#patientModal">Select Patient</button>
                         </div>
                     </div>
 
@@ -32,9 +30,7 @@
                             <input type="hidden" name="doctor_id" id="doctor_id">
                             <input type="text" id="doctor_name" class="form-control" readonly>
                             <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                data-bs-target="#doctorModal">
-                                Select Doctor
-                            </button>
+                                data-bs-target="#doctorModal">Select Doctor</button>
                         </div>
                     </div>
 
@@ -71,7 +67,6 @@
                         <textarea name="notes" class="form-control" rows="3"></textarea>
                     </div>
 
-                    <!-- Actions -->
                     <div class="d-flex justify-content-end">
                         <a href="{{ route('appointments.index') }}" class="btn btn-outline-secondary me-2">Cancel</a>
                         <button type="submit" class="btn btn-primary">Save</button>
@@ -86,7 +81,6 @@
     @include('modals.doctor-picker')
 
     <script>
-        // Pass selected patient from modal to form
         function selectPatient(id, name) {
             document.getElementById('patient_id').value = id;
             document.getElementById('patient_name').value = name;
@@ -94,7 +88,6 @@
             patientModal.hide();
         }
 
-        // Pass selected doctor from modal to form
         function selectDoctor(id, name) {
             document.getElementById('doctor_id').value = id;
             document.getElementById('doctor_name').value = name;
