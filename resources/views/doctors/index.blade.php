@@ -61,72 +61,30 @@
                         </table>
                     </div>
                 </div>
+            </div>
+
+            <!-- Include Bootstrap Icons CDN if not already in your layout -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
         @endif
-        </div>
+    </div>
 @endsection
 
-    @push('styles')
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
-    @endpush
+@push('styles')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
+@endpush
 
-    @push('scripts')
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#doctorsTable').DataTable({
-                    paging: true,
-                    searching: true,
-                    ordering: true,
-                    info: true
-                });
+@push('scripts')
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#doctorsTable').DataTable({
+                paging: true,
+                searching: true,
+                ordering: true,
+                info: true
             });
-        </script>
-    @endpush
-
-
-
-
-    @extends('layouts.app')
-
-    @section('content')
-        <div class="container">
-            <h1>Doctors</h1>
-            <a href="{{ route('doctors.create') }}" class="btn btn-primary mb-3">Add Doctor</a>
-
-            @if(session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Specialty</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($doctors as $doctor)
-                        <tr>
-                            <td>{{ $doctor->name }}</td>
-                            <td>{{ $doctor->specialty }}</td>
-                            <td>{{ $doctor->phone }}</td>
-                            <td>{{ $doctor->email }}</td>
-                            <td>
-                                <a href="{{ route('doctors.edit', $doctor) }}" class="btn btn-sm btn-warning">Edit</a>
-                                <form action="{{ route('doctors.destroy', $doctor) }}" method="POST" style="display:inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-danger"
-                                        onclick="return confirm('Delete this doctor?')">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    @endsection
+        });
+    </script>
+@endpush
