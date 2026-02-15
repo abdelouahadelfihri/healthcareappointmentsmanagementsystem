@@ -30,8 +30,10 @@
                         <input type="number" step="0.01" name="price" class="form-control"
                             value="{{ old('price', $service->price) }}">
                     </div>
-                    <button type="submit" class="btn btn-success">Update</button>
-                    <a href="{{ route('services.index') }}" class="btn btn-secondary">Cancel</a>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-success">Update</button>
+                        <a href="{{ route('services.index') }}" class="btn btn-secondary">Cancel</a>
+                    </div>
                 </form>
             </div>
         </div>
