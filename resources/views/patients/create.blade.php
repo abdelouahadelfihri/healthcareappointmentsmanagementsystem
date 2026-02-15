@@ -40,7 +40,7 @@
                         <textarea name="address" class="form-control" rows="3"></textarea>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-success">Save</button>
+                        <button type="submit" class="btn btn-primary me-2">Save</button>
                         <a href="{{ route('patients.index') }}" class="btn btn-secondary ml-3">Cancel</a>
                     </div>
                 </form>
