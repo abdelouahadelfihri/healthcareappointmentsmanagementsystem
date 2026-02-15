@@ -37,13 +37,13 @@
                                         <td class="text-center">
                                             <div class="d-flex justify-content-center gap-1">
                                                 <!-- Edit button -->
-                                                <a href="{{ route('patients.edit', $patient) }}" class="btn btn-sm btn-warning"
+                                                <a href="{{ route('doctors.edit', $doctor) }}" class="btn btn-sm btn-warning"
                                                     title="Edit">
                                                     <i class="bi bi-pencil-square"></i> Edit
                                                 </a>
 
                                                 <!-- Delete button -->
-                                                <form action="{{ route('patients.destroy', $patient) }}" method="POST"
+                                                <form action="{{ route('doctors.destroy', $doctor) }}" method="POST"
                                                     onsubmit="return confirm('Are you sure you want to delete this request?');">
                                                     @csrf
                                                     @method('DELETE')
