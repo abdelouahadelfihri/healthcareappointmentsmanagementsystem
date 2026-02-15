@@ -2,17 +2,17 @@
 
 @section('content')
     <div class="container mt-4">
-        <h1 class="mb-4">Liste of Suppliers</h1>
+        <h1 class="mb-4">Liste of Patients</h1>
 
         <div class="mb-3">
             <a class="btn btn-primary rounded-pill shadow-sm d-inline-flex align-items-center gap-2"
-                href="{{ route('suppliers.create') }}">
-                <i class="bi bi-plus-lg"></i> Add a Supplier
+                href="{{ route('patients.create') }}">
+                <i class="bi bi-plus-lg"></i> Add a Patient
             </a>
         </div>
 
-        @if($suppliers->isEmpty())
-            <div class="alert alert-info">No suppliers found.</div>
+        @if($patients->isEmpty())
+            <div class="alert alert-info">No patients found.</div>
         @else
             <div class="card shadow-sm">
                 <div class="card-body p-0">
