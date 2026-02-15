@@ -34,23 +34,16 @@
                                         <td>{{ $patient->phone }}</td>
                                         <td>{{ $patient->email }}</td>
                                         <td>{{ $patient->address }}</td>
-                                        <td>
-                                            <span class="badge @if($req->status === 'draft') bg-secondary                                                                                                                                                                                                                        @elseif($req->status === 'pending') bg-warning text-dark
-                                            @elseif($req->status === 'approved') bg-success
-                                                        @else bg-light text-dark @endif">
-                                                {{ ucfirst($req->status) }}
-                                            </span>
-                                        </td>
                                         <td class="text-center">
                                             <div class="d-flex justify-content-center gap-1">
                                                 <!-- Edit button -->
-                                                <a href="{{ route('purchasesrequests.edit', $req) }}" class="btn btn-sm btn-warning"
+                                                <a href="{{ route('patients.edit', $patient) }}" class="btn btn-sm btn-warning"
                                                     title="Edit">
                                                     <i class="bi bi-pencil-square"></i> Edit
                                                 </a>
 
                                                 <!-- Delete button -->
-                                                <form action="{{ route('purchasesrequests.destroy', $req) }}" method="POST"
+                                                <form action="{{ route('patients.destroy', $patient) }}" method="POST"
                                                     onsubmit="return confirm('Are you sure you want to delete this request?');">
                                                     @csrf
                                                     @method('DELETE')
