@@ -2,17 +2,17 @@
 
 @section('content')
     <div class="container mt-4">
-        <h1 class="mb-4">Liste of Suppliers</h1>
+        <h1 class="mb-4">Liste of Doctors</h1>
 
         <div class="mb-3">
             <a class="btn btn-primary rounded-pill shadow-sm d-inline-flex align-items-center gap-2"
-                href="{{ route('suppliers.create') }}">
-                <i class="bi bi-plus-lg"></i> Add a Supplier
+                href="{{ route('doctors.create') }}">
+                <i class="bi bi-plus-lg"></i> Add a Doctor
             </a>
         </div>
 
-        @if($suppliers->isEmpty())
-            <div class="alert alert-info">No suppliers found.</div>
+        @if($doctors->isEmpty())
+            <div class="alert alert-info">No doctors found.</div>
         @else
             <div class="card shadow-sm">
                 <div class="card-body p-0">
@@ -34,19 +34,24 @@
                                         <td>{{ $doctor->specialty }}</td>
                                         <td>{{ $doctor->phone }}</td>
                                         <td>{{ $doctor->email }}</td>
-                                        <td>
-                                            @if($selectFor && $returnUrl)
-                                                @php
-                                                    $form = session('sale_quotation_form', []);
-                                                    $query = array_merge(['selected_customer_id' => $s->id], $form);
-                                                @endphp
-                                                <a class="btn btn-success btn-sm"
-                                                    href="{{ $returnUrl }}?{{ http_build_query($query) }}">
-                                                    Select
+                                        <td class="text-center">
+                                            <div class="d-flex justify-content-center gap-1">
+                                                <!-- Edit button -->
+                                                <a href="{{ route('patients.edit', $patient) }}" class="btn btn-sm btn-warning"
+                                                    title="Edit">
+                                                    <i class="bi bi-pencil-square"></i> Edit
                                                 </a>
-                                            @else
-                                                <a class="btn btn-warning btn-sm" href="{{ route('customers.edit', $s) }}">Edit</a>
-                                            @endif
+
+                                                <!-- Delete button -->
+                                                <form action="{{ route('patients.destroy', $patient) }}" method="POST"
+                                                    onsubmit="return confirm('Are you sure you want to delete this request?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger" title="Delete">
+                                                        <i class="bi bi-trash"></i> Delete
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -67,7 +72,7 @@
         <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
         <script>
             $(document).ready(function () {
-                $('#suppliersTable').DataTable({
+                $('#doctorsTable').DataTable({
                     paging: true,
                     searching: true,
                     ordering: true,
