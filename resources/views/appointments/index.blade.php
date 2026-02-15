@@ -20,6 +20,7 @@
                         <table id="appointmentsTable" class="table table-striped table-hover table-bordered align-middle mb-0">
                             <thead class="table-dark">
                                 <tr>
+                                    <th>#</th>
                                     <th>Patient</th>
                                     <th>Doctor</th>
                                     <th>Date & Time</th>
@@ -31,6 +32,7 @@
                             <tbody>
                                 @foreach($appointments as $appointment)
                                     <tr>
+                                        <td>{{ $appointment->id }}</td>
                                         <td>{{ $appointment->patient->name }}</td>
                                         <td>{{ $appointment->doctor->name }}</td>
                                         <td>{{ $appointment->appointment_datetime }}</td>
