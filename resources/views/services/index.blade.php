@@ -6,7 +6,7 @@
 
         <div class="mb-3">
             <a class="btn btn-primary rounded-pill shadow-sm d-inline-flex align-items-center gap-2"
-                href="{{ route('categories.create') }}">
+                href="{{ route('services.create') }}">
                 <i class="bi bi-plus-lg"></i> Add a Service
             </a>
         </div>
@@ -20,6 +20,7 @@
                         <table id="servicesTable" class="table table-striped table-hover table-bordered align-middle mb-0">
                             <thead class="table-dark">
                                 <tr>
+                                    <th>#</th>
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>Price</th>
@@ -29,20 +30,21 @@
                             <tbody>
                                 @foreach($services as $service)
                                     <tr>
+                                        <td>{{ $service->id }}</td>
                                         <td>{{ $service->name }}</td>
                                         <td>{{ $service->description }}</td>
                                         <td>{{ $service->price }}</td>
                                         <td class="text-center">
                                             <div class="d-flex justify-content-center gap-1">
                                                 <!-- Edit button -->
-                                                <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-warning"
+                                                <a href="{{ route('services.edit', $service) }}" class="btn btn-sm btn-warning"
                                                     title="Edit">
                                                     <i class="bi bi-pencil-square"></i> Edit
                                                 </a>
 
                                                 <!-- Delete button -->
-                                                <form action="{{ route('categories.destroy', $category) }}" method="POST"
-                                                    onsubmit="return confirm('Are you sure you want to delete this category?');">
+                                                <form action="{{ route('services.destroy', $service) }}" method="POST"
+                                                    onsubmit="return confirm('Are you sure you want to delete this request?');">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger" title="Delete">
