@@ -19,8 +19,10 @@
                         <label class="form-label">Email (optional)</label>
                         <input type="email" name="email" class="form-control">
                     </div>
-                    <button type="submit" class="btn btn-success">Save</button>
-                    <a href="{{ route('doctors.index') }}" class="btn btn-secondary">Cancel</a>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-success">Save</button>
+                        <a href="{{ route('doctors.index') }}" class="btn btn-secondary">Cancel</a>
+                    </div>
                 </form>
             </div>
         </div>
