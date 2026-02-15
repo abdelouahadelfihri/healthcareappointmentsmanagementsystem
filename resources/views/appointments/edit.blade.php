@@ -83,8 +83,8 @@
 
                     <!-- Actions -->
                     <div class="d-flex justify-content-end">
-                        <a href="{{ route('appointments.index') }}" class="btn btn-outline-secondary me-2">Cancel</a>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-success">Update</button>
+                        <a href="{{ route('appointments.index') }}" class="btn btn-secondary">Cancel</a>
                     </div>
 
                 </form>
