@@ -30,7 +30,7 @@
                     </div>
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn btn-success">Update</button>
-                        <a href="{{ route('doctors.index') }}" class="btn btn-secondary">Cancel</a>
+                        <a href="{{ route('doctors.index') }}" class="btn btn-secondary ml-3">Cancel</a>
                     </div>
                 </form>
             </div>
@@ -82,7 +82,7 @@
                 <input type="email" name="email" class="form-control" value="{{ old('email', $doctor->email) }}">
             </div>
             <button type="submit" class="btn btn-success">Update</button>
-            <a href="{{ route('doctors.index') }}" class="btn btn-secondary">Cancel</a>
+            <a href="{{ route('doctors.index') }}" class="btn btn-secondary ml-3">Cancel</a>
         </form>
     </div>
 @endsection

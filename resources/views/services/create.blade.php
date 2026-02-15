@@ -28,7 +28,7 @@
                     </div>
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn btn-success">Save</button>
-                        <a href="{{ route('services.index') }}" class="btn btn-secondary">Cancel</a>
+                        <a href="{{ route('services.index') }}" class="btn btn-secondary ml-3">Cancel</a>
                     </div>
                 </form>
             </div>
@@ -59,7 +59,7 @@
                 <input type="number" step="0.01" name="price" class="form-control">
             </div>
             <button type="submit" class="btn btn-success">Save</button>
-            <a href="{{ route('services.index') }}" class="btn btn-secondary">Cancel</a>
+            <a href="{{ route('services.index') }}" class="btn btn-secondary ml-3">Cancel</a>
         </form>
     </div>
 @endsection

@@ -67,8 +67,8 @@
                         <textarea name="notes" class="form-control" rows="3"></textarea>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-success">Save</button>
-                        <a href="{{ route('appointments.index') }}" class="btn btn-outline-secondary me-2">Cancel</a>
+                        <button type="submit" class="btn btn-success me-2">Update</button>
+                        <a href="{{ route('appointments.index') }}" class="btn btn-secondary">Cancel</a>
                     </div>
                 </form>
             </div>

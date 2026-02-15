@@ -83,7 +83,7 @@
 
                     <!-- Actions -->
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-success">Update</button>
+                        <button type="submit" class="btn btn-success me-2">Update</button>
                         <a href="{{ route('appointments.index') }}" class="btn btn-secondary">Cancel</a>
                     </div>
 

@@ -21,7 +21,7 @@
                     </div>
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn btn-success">Save</button>
-                        <a href="{{ route('doctors.index') }}" class="btn btn-secondary">Cancel</a>
+                        <a href="{{ route('doctors.index') }}" class="btn btn-secondary ml-3">Cancel</a>
                     </div>
                 </form>
             </div>
