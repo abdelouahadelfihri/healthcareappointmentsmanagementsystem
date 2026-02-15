@@ -20,6 +20,7 @@
                         <table id="patientsTable" class="table table-striped table-hover table-bordered align-middle mb-0">
                             <thead class="table-dark">
                                 <tr>
+                                    <th>#</th>
                                     <th>Name</th>
                                     <th>Specialty</th>
                                     <th>Phone</th>
@@ -30,6 +31,7 @@
                             <tbody>
                                 @foreach($doctors as $doctor)
                                     <tr>
+                                        <td>{{ $doctor->id }}</td>
                                         <td>{{ $doctor->name }}</td>
                                         <td>{{ $doctor->specialty }}</td>
                                         <td>{{ $doctor->phone }}</td>
