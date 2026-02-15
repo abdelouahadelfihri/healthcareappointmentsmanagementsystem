@@ -29,7 +29,7 @@
                         <input type="email" name="email" class="form-control" value="{{ old('email', $doctor->email) }}">
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-success me-2">Update</button>
+                        <button type="submit" class="btn btn-primary me-2">Update</button>
                         <a href="{{ route('doctors.index') }}" class="btn btn-secondary">Cancel</a>
                     </div>
                 </form>

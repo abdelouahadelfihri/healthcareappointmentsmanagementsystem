@@ -31,7 +31,7 @@
                             value="{{ old('price', $service->price) }}">
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-success me-2">Update</button>
+                        <button type="submit" class="btn btn-primary me-2">Update</button>
                         <a href="{{ route('services.index') }}" class="btn btn-secondary">Cancel</a>
                     </div>
                 </form>

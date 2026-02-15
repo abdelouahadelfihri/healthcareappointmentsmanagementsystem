@@ -44,7 +44,7 @@
                             rows="3">{{ old('address', $patient->address) }}</textarea>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-success me-2">Update</button>
+                        <button type="submit" class="btn btn-primary me-2">Update</button>
                         <a href="{{ route('patients.index') }}" class="btn btn-secondary">Cancel</a>
                     </div>
                 </form>
