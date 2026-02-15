@@ -79,7 +79,7 @@
     <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
-            if (!$.fn.DataTable.isDataTable('#servicesTable')) {
+            if (!$.fn.DataTable.isDataTable('#doctorsTable')) {
                 $('#doctorsTable').DataTable({
                     paging: true,
                     searching: true,
