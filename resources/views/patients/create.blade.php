@@ -39,9 +39,10 @@
                         <label class="form-label">Address</label>
                         <textarea name="address" class="form-control" rows="3"></textarea>
                     </div>
-
-                    <button type="submit" class="btn btn-success">Save</button>
-                    <a href="{{ route('patients.index') }}" class="btn btn-secondary">Cancel</a>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-success">Save</button>
+                        <a href="{{ route('patients.index') }}" class="btn btn-secondary">Cancel</a>
+                    </div>
                 </form>
             </div>
         </div>
