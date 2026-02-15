@@ -77,12 +77,14 @@
     <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#servicesTable').DataTable({
-                paging: true,
-                searching: true,
-                ordering: true,
-                info: true
-            });
+            if (!$.fn.DataTable.isDataTable('#servicesTable')) {
+                $('#servicesTable').DataTable({
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                    info: true
+                });
+            }
         });
     </script>
 @endpush
