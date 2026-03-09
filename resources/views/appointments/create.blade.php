@@ -78,19 +78,4 @@
     @include('modals.patient-picker')
     @include('modals.doctor-picker')
 
-    <script>
-        function selectPatient(id, name) {
-            document.getElementById('patient_id').value = id;
-            document.getElementById('patient_name').value = name;
-            var patientModal = bootstrap.Modal.getInstance(document.getElementById('patientModal'));
-            patientModal.hide();
-        }
-
-        function selectDoctor(id, name) {
-            document.getElementById('doctor_id').value = id;
-            document.getElementById('doctor_name').value = name;
-            var doctorModal = bootstrap.Modal.getInstance(document.getElementById('doctorModal'));
-            doctorModal.hide();
-        }
-    </script>
 @endsection
