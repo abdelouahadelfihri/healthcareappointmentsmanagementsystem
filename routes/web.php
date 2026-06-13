@@ -19,7 +19,7 @@ Route::middleware(['web'])->group(function () {
     | Dashboard
     |--------------------------------------------------------------------------
     */
-    Route::get('/', fn() => view('dashboard'))->name('dashboard');
+    Route::get('/', fn() => view('login'))->name('login');
 
 
     /*
