@@ -7,7 +7,7 @@
 
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <h1>Welcome, {{ Auth::user()->name }}</h1>
+                <h1>Welcome</h1>
                 <p class="text-muted">Select a module from the menu.</p>
             </div>
             <form action="{{ route('logout') }}" method="POST">
