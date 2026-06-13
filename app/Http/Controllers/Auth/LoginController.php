@@ -32,7 +32,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->route('dashboard')
-                - with('success', 'Logged in successfully!');
+                ->with('success', 'Logged in successfully!');
         }
 
         return back()->withErrors([
