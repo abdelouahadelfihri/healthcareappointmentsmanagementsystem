@@ -14,7 +14,7 @@ class SecretaryUserSeeder extends Seeder
     public function run(): void
     {
         User::firstOrCreate(
-            ['email' => 'secretary@clinic.com'],
+            ['email' => 'abdelouahadelfihri107@gmail.com'],
             [
                 'name' => 'Secretary',
                 'password' => Hash::make('password123'),
