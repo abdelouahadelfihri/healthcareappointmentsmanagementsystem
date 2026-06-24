@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mt-4">
 
-        <h1 class="mb-4">Edit Purchase Order #{{ $purchaseOrder->id }}</h1>
+        <h1 class="mb-4">Edit Doctor #{{ $doctor->id }}</h1>
 
         <div class="card shadow-sm">
             <div class="card-body">
