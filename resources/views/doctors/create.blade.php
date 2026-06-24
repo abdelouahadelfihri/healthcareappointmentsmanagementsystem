@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mt-4">
 
-        <h1 class="mb-4">Create Customer</h1>
+        <h1 class="mb-4">Add a Doctor</h1>
 
         <div class="card shadow-sm">
             <div class="card-body">
