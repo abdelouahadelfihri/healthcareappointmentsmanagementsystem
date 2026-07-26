@@ -1,6 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
+    @if (session('error'))
+        <script>
+            alert(@json(session('error')));
+        </script>
+    @endif
+
+    @if (session('success'))
+        <script>
+            alert(@json(session('success')));
+        </script>
+    @endif
+
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h3>Edit Appointment</h3>
