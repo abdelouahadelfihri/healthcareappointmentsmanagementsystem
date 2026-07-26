@@ -35,7 +35,21 @@ class AppointmentController extends Controller
             'notes' => 'nullable|string',
         ]);
 
-        // create appointment
+        // Step 5-7: check if the doctor already has an appointment at this datetime
+        $conflict = Appointment::where('doctor_id', $validated['doctor_id'])
+            ->where('appointment_datetime', $validated['appointment_datetime'])
+            ->exists();
+
+        // Step 8: alt [créneau disponible] / else [créneau indisponible]
+        if ($conflict) {
+            // Step 15-16: erreur "créneau déjà pris"
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'This time slot is already booked for the selected doctor.');
+        }
+
+        // Step 9-12: create appointment (status='scheduled' by default if you want to enforce it)
         $appointment = Appointment::create($validated);
 
         // attach services
@@ -45,7 +59,7 @@ class AppointmentController extends Controller
                 $service = Service::find($serviceId);
                 if ($service) {
                     $attachData[$service->id] = [
-                        'quantity' => 1, // default quantity
+                        'quantity' => 1,
                         'unit_price' => $service->price,
                     ];
                 }
@@ -53,6 +67,7 @@ class AppointmentController extends Controller
             $appointment->services()->attach($attachData);
         }
 
+        // Step 13-14: succès / affiche la confirmation
         return redirect()->route('appointments.index')->with('success', 'Appointment created successfully');
     }
 
@@ -75,6 +90,22 @@ class AppointmentController extends Controller
             'notes' => 'nullable|string',
         ]);
 
+        // Step 5-7: check if the doctor already has a DIFFERENT appointment at this datetime
+        $conflict = Appointment::where('doctor_id', $validated['doctor_id'])
+            ->where('appointment_datetime', $validated['appointment_datetime'])
+            ->where('id', '!=', $appointment->id)
+            ->exists();
+
+        // Step 8: alt [créneau disponible] / else [créneau indisponible]
+        if ($conflict) {
+            // Step 15-16: erreur "créneau déjà pris"
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'This time slot is already booked for the selected doctor.');
+        }
+
+        // Step 9-12: update appointment
         $appointment->update($validated);
 
         // sync services
@@ -92,6 +123,7 @@ class AppointmentController extends Controller
         }
         $appointment->services()->sync($attachData);
 
+        // Step 13-14: succès / affiche la confirmation
         return redirect()->route('appointments.index')->with('success', 'Appointment updated successfully');
     }
 
