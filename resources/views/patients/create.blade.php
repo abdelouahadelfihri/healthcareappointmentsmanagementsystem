@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+    @if (session('success'))
+        <script>
+            alert(@json(session('success')));
+        </script>
+    @endif
     <div class="container mt-4">
 
         <div class="d-flex justify-content-between align-items-center mb-3">

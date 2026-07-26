@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+    
+    @if (session('success'))
+        <script>
+            alert(@json(session('success')));
+        </script>
+    @endif
     <div class="container mt-4">
 
         <h1 class="mb-4">Add a Doctor</h1>

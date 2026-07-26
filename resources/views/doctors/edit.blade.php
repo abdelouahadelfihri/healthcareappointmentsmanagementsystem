@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+    @if (session('success'))
+        <script>
+            alert(@json(session('success')));
+        </script>
+    @endif
     <div class="container mt-4">
 
         <h1 class="mb-4">Edit Doctor #{{ $doctor->id }}</h1>
